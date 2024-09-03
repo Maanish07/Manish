@@ -50,8 +50,7 @@ export const Footer = () => {
         <hr className="my-4" />
         <div className="text-sm sm:text-base text-center">
           <p>
-            © 2024 - The Night Manager, All rights reserved. Designed &
-            Developed By:{" "}
+            Made With ❤ by
             <a href="https://www.instagram.com/mannu_story07">
               <span
                 style={{
@@ -63,7 +62,7 @@ export const Footer = () => {
                 className="text-lg mb-4 no-underline"
               >
                 {" "}
-                hello{" "}
+                Manish Kumar{" "}
               </span>
             </a>
           </p>

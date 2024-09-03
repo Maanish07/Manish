@@ -3,13 +3,14 @@ import Header from "./Header";
 import axios from "axios";
 
 const Issue = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [issues, setIssues] = useState([]);
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
     const fetchIssuesWithDetails = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/issue");
+        const response = await axios.get(`${backendurl}/issue`);
         const issuesData = response.data;
 
         const issuesWithDetails = await Promise.all(
@@ -37,7 +38,7 @@ const Issue = () => {
 
   const fetchUserDetails = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:4000/user/${userId}`);
+      const response = await axios.get(`${backendurl}/user/${userId}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching user details:", error);
@@ -47,9 +48,7 @@ const Issue = () => {
 
   const fetchOrderDetails = async (orderId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:4000/order/${orderId}`
-      );
+      const response = await axios.get(`${backendurl}/order/${orderId}`);
       setOrder(response.data);
     } catch (error) {
       console.error("Error fetching order details:", error);

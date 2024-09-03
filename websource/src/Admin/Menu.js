@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "./Header";
 
 const Menu = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [menu, setMenu] = useState([]);
   const [quantities, setQuantities] = useState({});
 
@@ -17,7 +18,7 @@ const Menu = () => {
     const quantity = quantities[foodItem._id];
     if (quantity) {
       axios
-        .put(`http://localhost:4000/menuitem/${foodItem._id}`, { quantity })
+        .put(`${backendurl}/menuitem/${foodItem._id}`, { quantity })
         .then((response) => {
           alert("Quantity updated successfully");
         })

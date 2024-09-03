@@ -24,6 +24,7 @@ function Userinfo() {
     <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75 z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <div className="flex justify-between items-center mb-4">
+          <h1>Hello 👋</h1>
           <h2 className="text-lg font-bold">Confirm your WhatsApp number</h2>
           <button className="text-xl font-bold">&times;</button>{" "}
           {/* Close Button */}

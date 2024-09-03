@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 
 const Admin = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -19,7 +20,7 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/Admin", {
+      const response = await axios.post(`${backendurl}/Admin`, {
         name: credentials.name,
         email: credentials.email,
         password: credentials.password,

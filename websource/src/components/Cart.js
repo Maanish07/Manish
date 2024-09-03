@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import Counter from "./Counter";
 
@@ -21,6 +21,18 @@ export const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const [table, setTable] = useState("");
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
+
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+  console.log("this is cartItems", cartItems);
+  console.log("this is cart", cart);
 
   const handleChange = (e) => {
     setTable(e.target.value);
@@ -42,33 +54,12 @@ export const Cart = () => {
     finalTotal += deliveryFee;
   }
 
-  const handleQuantityChange = (id, val) => {
-    if (val > 0) {
-      const existingItem = cartItems.find((item) => item._id === id);
-      if (existingItem) {
-        const updatedItem = { ...existingItem, quantity: "" };
-        dispatch(addItem(updatedItem));
-      }
-    }
-  };
-
-  const handleRepeat = (foodItem) => {
-    const existingItem = cartItems.find((item) => item._id === foodItem._id);
-    if (existingItem) {
-      dispatch(
-        addItem({ ...existingItem, quantity: existingItem.quantity + 1 })
-      );
-    } else {
-      dispatch(addItem({ ...foodItem, quantity: 1 }));
-    }
-  };
-
   const handleRemove = (id) => {
     dispatch(removeItem({ _id: id }));
   };
 
   const handleCash = () => {
-    const adminOrderEndpoint = "http://localhost:4000/order";
+    const adminOrderEndpoint = `${backendurl}/order`;
     const orderData = {
       name: user.name,
       phone: user.phone,
@@ -100,7 +91,7 @@ export const Cart = () => {
 
   const handlePlace = async () => {
     try {
-      const { data } = await axios.post("http://localhost:4000/payment", {
+      const { data } = await axios.post(`${backendurl}/payment`, {
         amount: finalTotal,
       });
       initPayment(data.data);
@@ -120,13 +111,13 @@ export const Cart = () => {
       order_id: data.id,
       handler: async (response) => {
         try {
-          const verify = "http://localhost:4000/verify";
+          const verify = `${backendurl}/verify`;
           const { data } = await axios.post(verify, {
             ...response,
             cartItems,
             user,
           });
-          const adminOrderEndpoint = "http://localhost:4000/order";
+          const adminOrderEndpoint = `${backendurl}/order`;
           const orderData = {
             name: user.name,
             phone: user.phone,
@@ -249,7 +240,15 @@ export const Cart = () => {
                     />
                   </div>
                 </div>
-
+                <div>
+                  <p>
+                    ORDERING INFORMATION: Please note: Orders take a minimum of
+                    45 minutes to deliver. Whilst we endeavour to get your order
+                    to you on time, there may be delays during busier periods.
+                    If you have any issues with your order or experience, in the
+                    first instance please contact.
+                  </p>
+                </div>
                 <div className="flex flex-col space-y-4 mt-6">
                   <div className="">
                     {total < 200 ? (

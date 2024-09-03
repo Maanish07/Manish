@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
-
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   useEffect(() => {
     axios
-      .get("http://localhost:4000/review")
+      .get(`${backendurl}/review`)
       .then((response) => {
         setReviews(response.data);
       })

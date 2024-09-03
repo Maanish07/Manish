@@ -1,31 +1,5 @@
-// import { createSlice } from "@reduxjs/toolkit";
-
-// const cartSlice = createSlice({
-//   name: "cart",
-//   initialState: {
-//     items: [],
-
-//   },
-
-//   reducers: {
-//     addItem: (state, action) => {
-
-//       state.items.push(action.payload);
-
-//     },
-
-//     removeItem: (state, action) => {
-//       state.items.pop();
-//     },
-//     clearCart: (state) => {
-//       state.items = [];
-//     },
-//   },
-// });
-// export const { addItem, removeItem, clearCart } = cartSlice.actions;
-// export default cartSlice.reducer;
-
 import { createSlice, current } from "@reduxjs/toolkit";
+import { ToastContainer, toast } from "react-toastify";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -70,10 +44,45 @@ const cartSlice = createSlice({
     },
 
     addItem: (state, action) => {
-      state.items.push(action.payload);
+      const isExist = state.items?.some(
+        (item) => item?._id === action.payload?._id
+      );
+      if (isExist) {
+        const temp = current(state.items)?.map((item) => {
+          console.log("temp", action.payload);
+          if (item?._id === action.payload?._id) {
+            const updatedData = { ...item, quantity: item.quantity + 1 };
+            return {
+              ...updatedData,
+            };
+          }
+          return item;
+        });
+        state.items = temp;
+
+        toast.success("Added...", {
+          position: "top-center",
+        });
+      } else {
+        const existingData = [
+          ...current(state.items),
+          {
+            quantity: 1,
+
+            ...action.payload,
+          },
+        ];
+        console.log(action.payload, "ction.payload");
+        state.items = existingData;
+        toast.success("Item Added", {
+          position: "top-center",
+        });
+      }
     },
     removeItem: (state, action) => {
-      state.items.pop();
+      state.items = state.items.filter(
+        (item) => item._id !== action.payload._id
+      );
     },
     clearCart: (state) => {
       state.items = [];

@@ -161,6 +161,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   let navigate = useNavigate();
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -178,7 +179,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:4000/signup",
+        `${backendurl}/signup`,
         {
           name: user.name,
           email: user.email,

@@ -6,6 +6,7 @@ const Issue = ({ orderId, onClose }) => {
   const { user, setUser } = useContext(UserContext);
   const [selectedIssues, setSelectedIssues] = useState([]);
   const [successMessage, setSuccessMessage] = useState(null);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleCheckboxChange = (issue) => {
     setSelectedIssues((prevSelected) =>
@@ -27,7 +28,7 @@ const Issue = ({ orderId, onClose }) => {
     };
     console.log(newIssue);
     try {
-      const response = await axios.post("http://localhost:4000/issue", {
+      const response = await axios.post(`${backendurl}/issue`, {
         userId: user._id,
         orderId,
         issues: selectedIssues,

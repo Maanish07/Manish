@@ -11,6 +11,7 @@ const Picsupload = () => {
   const [preview, setPreview] = useState(null);
   const [message, setMessage] = useState("");
   const [insta, setInsta] = useState("");
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleInstaChange = (e) => {
     setInsta(e.target.value);
@@ -36,15 +37,11 @@ const Picsupload = () => {
       insta,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:4000/pics",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${backendurl}/pics`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setMessage("Image uploaded successfully!");
       if (response) {

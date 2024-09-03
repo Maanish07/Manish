@@ -5,6 +5,7 @@ import Addexpense from "./Addexpense";
 import { Footer } from "../components/Footer";
 
 const Expense = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [tasks, setTasks] = useState([]);
   const [addExpense, setAddExpense] = useState(false);
 
@@ -14,7 +15,7 @@ const Expense = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/expense");
+      const response = await axios.get(`${backendurl}/expense`);
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -23,7 +24,7 @@ const Expense = () => {
 
   const handleAddExpense = async (newTask) => {
     try {
-      await axios.post("http://localhost:4000/expense", newTask);
+      await axios.post(`${backendurl}/expense`, newTask);
       fetchTasks();
       handleClose();
     } catch (error) {

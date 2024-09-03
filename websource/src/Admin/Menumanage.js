@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const Menumanage = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -58,15 +59,11 @@ export const Menumanage = () => {
     formData.append("files", file);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/menuitem",
-        menu,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${backendurl}/menuitem`, menu, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       console.log("menu updated", menu);
       if (response) {

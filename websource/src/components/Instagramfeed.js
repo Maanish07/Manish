@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Instagramfeed = () => {
   const [media, setMedia] = useState([]);
-
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   useEffect(() => {
     axios
-      .get("http://localhost:4000/instagram")
+      .get(`${backendurl}/instagram`)
       .then((response) => {
         setMedia(response.data.data);
       })

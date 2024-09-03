@@ -6,6 +6,7 @@ import { Footer } from "../components/Footer";
 import Card from "react-bootstrap/Card";
 
 const Adminorders = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +15,7 @@ const Adminorders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/order")
+      .get(`${backendurl}/order`)
       .then((response) => {
         const reversedOrders = response.data.reverse();
         setOrder(reversedOrders);
@@ -31,7 +32,7 @@ const Adminorders = () => {
   const handleDeliver = (orderId) => {
     console.log("Order ID:", orderId);
     axios
-      .put(`http://localhost:4000/order/${orderId}`, { status: "Delivered" })
+      .put(`${backendurl}/order/${orderId}`, { status: "Delivered" })
       .then((response) => {
         console.log("Order updated:", response.data);
       })
@@ -43,7 +44,7 @@ const Adminorders = () => {
     console.log("Order ID:", orderId);
     axios
 
-      .put(`http://localhost:4000/order/${orderId}`, { status: "Preparing" })
+      .put(`${backendurl}/order/${orderId}`, { status: "Preparing" })
       .then((response) => {
         console.log("Order updated:", response.data);
         alert("updated");

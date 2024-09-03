@@ -11,10 +11,11 @@ import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 
 function Swipe() {
   const [testimonialImage, setTestimonialImage] = useState([]);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/pics")
+      .get(`${backendurl}/pics`)
       .then((response) => {
         setTestimonialImage(response.data);
       })
@@ -58,9 +59,8 @@ function Swipe() {
             className="swiper-slide flex justify-center items-center"
             style={{ width: "300px", height: "300px" }}
           >
-            
             <a
-              href={`https://www.instagram.com/${testImage.instaid}`}
+              href={`${backendurl}/${testImage.instaid}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block h-full w-full"

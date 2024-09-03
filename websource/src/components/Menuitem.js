@@ -14,10 +14,11 @@ export const Menuitem = () => {
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/menuitem")
+      .get(`${backendurl}/menuitem`)
       .then((response) => {
         setFoodItems(response.data);
       })
@@ -37,13 +38,7 @@ export const Menuitem = () => {
   }, [search]);
 
   const handleAddItem = (foodItem) => {
-    const existingItem = cartItems.find((item) => item.id === foodItem.id);
-    if (existingItem?._id === foodItem?._id) {
-      dispatch(addItem({ ...foodItem, quantity: existingItem.quantity + 1 }));
-    } else {
-      dispatch(addItem({ ...foodItem, quantity: 1 }));
-    }
-    toast.success(`${foodItem.name} added to cart!`);
+    dispatch(addItem(foodItem));
   };
 
   const handleCheckboxChange = (event) => {
@@ -56,7 +51,7 @@ export const Menuitem = () => {
 
   return (
     <>
-      <div className="container mx-auto py-8">
+      <div id="menuItem" className="container mx-auto py-8">
         <div className="flex flex-row items-center justify-between mb-4">
           <div className="flex items-center p-2  bg-white text-black rounded shadow border border-gray-300">
             <label

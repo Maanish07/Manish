@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
   let navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -23,7 +24,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/login",
+        `${backendurl}/login`,
         {
           email: user.email,
           password: user.password,

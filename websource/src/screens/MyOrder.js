@@ -11,6 +11,7 @@ export default function MyOrder() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isIssueOpen, setIsIssueOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleIssueClick = (orderId) => {
     setSelectedOrderId(orderId);
@@ -32,7 +33,7 @@ export default function MyOrder() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/order/")
+      .get(`${backendurl}/order`)
       .then((response) => {
         setFooditem(response.data);
       })

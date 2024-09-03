@@ -5,6 +5,7 @@ import UserContext from "../utils/UserContext";
 
 const Review = () => {
   const { user } = useContext(UserContext);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const [formData, setFormData] = useState({
     name: user.name,
@@ -25,7 +26,7 @@ const Review = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/review", formData);
+      await axios.post(`${backendurl}/review`, formData);
       setMessage("Review submitted successfully!");
       setFormData({ review: "", rating: 0 });
       setShowForm(false);

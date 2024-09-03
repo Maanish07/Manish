@@ -6,10 +6,11 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Slick = () => {
   const [items, setItems] = useState([]);
+  const backendurl = process.env.REACT_APP_BACKEND_API_URL;
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/menuitem")
+      .get(`${backendurl}/menuitem`)
       .then((response) => {
         setItems(response.data);
       })
