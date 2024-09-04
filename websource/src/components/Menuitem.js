@@ -96,69 +96,70 @@ export const Menuitem = () => {
         <div className="bg-white rounded">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xl:gap-x-8">
-              {filteredItems
-                .filter((foodItem) => {
-                  return debouncedSearch.toLocaleLowerCase() === ""
-                    ? foodItem
-                    : foodItem.name
-                        .toLocaleLowerCase()
-                        .includes(debouncedSearch.toLocaleLowerCase());
-                })
-                .map((foodItem) => (
-                  <div
-                    key={foodItem.id}
-                    className="p-3"
-                    style={{ borderBottom: "1px solid rgb(0 0 0 / 19%)" }}
-                  >
-                    <div className="flex justify-between mb-2">
-                      {foodItem.bestsellers && (
-                        <span className="inline-flex items-center rounded-md bg-yellow-500 px-2 py-1 text-sm font-medium text-black">
-                          BestSellers
-                        </span>
-                      )}
-                      {foodItem.veg && (
-                        <div className="w-5 h-5">
+              {Array.isArray(filteredItems) &&
+                filteredItems
+                  .filter((foodItem) => {
+                    return debouncedSearch.toLocaleLowerCase() === ""
+                      ? foodItem
+                      : foodItem.name
+                          .toLocaleLowerCase()
+                          .includes(debouncedSearch.toLocaleLowerCase());
+                  })
+                  .map((foodItem) => (
+                    <div
+                      key={foodItem.id}
+                      className="p-3"
+                      style={{ borderBottom: "1px solid rgb(0 0 0 / 19%)" }}
+                    >
+                      <div className="flex justify-between mb-2">
+                        {foodItem.bestsellers && (
+                          <span className="inline-flex items-center rounded-md bg-yellow-500 px-2 py-1 text-sm font-medium text-black">
+                            BestSellers
+                          </span>
+                        )}
+                        {foodItem.veg && (
+                          <div className="w-5 h-5">
+                            <img
+                              src="https://img.icons8.com/?size=64&id=119426&format=png"
+                              alt="Veg Icon"
+                              className="w-full h-full"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="w-20 h-20 flex-shrink-0">
                           <img
-                            src="https://img.icons8.com/?size=64&id=119426&format=png"
-                            alt="Veg Icon"
-                            className="w-full h-full"
+                            src={foodItem.image}
+                            className="w-full h-full object-cover rounded-[2.5rem]"
                           />
                         </div>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="w-20 h-20 flex-shrink-0">
-                        <img
-                          src={foodItem.image}
-                          className="w-full h-full object-cover rounded-[2.5rem]"
-                        />
-                      </div>
 
-                      <div className="ml-4 flex-1">
-                        <div className="w-100">
-                          <span className="text-base font-bold leading-tight">
-                            {foodItem.name}
-                          </span>
-                          <p className="title md-text16 md-f700 md-lh16">
-                            ₹ {foodItem.price}
-                          </p>
+                        <div className="ml-4 flex-1">
+                          <div className="w-100">
+                            <span className="text-base font-bold leading-tight">
+                              {foodItem.name}
+                            </span>
+                            <p className="title md-text16 md-f700 md-lh16">
+                              ₹ {foodItem.price}
+                            </p>
+                          </div>
+                        </div>
+                        <div className=" flex items-center justify-between">
+                          <button
+                            className={`pl-6 pr-6 pt-2 pb-2 bg-white text-black rounded shadow border border-gray-300; ${
+                              foodItem.quantity === 0
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "hover:bg-blue-600 transition"
+                            }`}
+                            onClick={() => handleAddItem(foodItem)}
+                          >
+                            Add
+                          </button>
                         </div>
                       </div>
-                      <div className=" flex items-center justify-between">
-                        <button
-                          className={`pl-6 pr-6 pt-2 pb-2 bg-white text-black rounded shadow border border-gray-300; ${
-                            foodItem.quantity === 0
-                              ? "bg-gray-400 cursor-not-allowed"
-                              : "hover:bg-blue-600 transition"
-                          }`}
-                          onClick={() => handleAddItem(foodItem)}
-                        >
-                          Add
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
             </div>
           </div>
         </div>
