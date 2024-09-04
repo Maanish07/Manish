@@ -52,41 +52,42 @@ const Instagramfeed = () => {
   return (
     <div className="p-5">
       <Slider {...settings}>
-        {media.map((item) => (
-          <div
-            key={item.id}
-            className="relative rounded-lg overflow-hidden shadow-md"
-          >
-            {item.media_type === "CAROUSEL_ALBUM" && (
-              <img
-                src={
-                  Array.isArray(item.media_url)
-                    ? item.media_url[0]
-                    : item.media_url
-                }
-                className="w-full h-auto object-cover rounded-lg"
-                alt="Instagram media"
-              />
-            )}
-            {item.media_type === "IMAGE" && (
-              <img
-                src={
-                  Array.isArray(item.media_url)
-                    ? item.media_url[0]
-                    : item.media_url
-                }
-                className="w-full h-auto object-cover rounded-lg"
-                alt="Instagram media"
-              />
-            )}
-            {item.media_type === "VIDEO" && (
-              <video controls className="w-full h-auto rounded-lg">
-                <source src={item.media_url} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
-          </div>
-        ))}
+        {Array.isArray(media) &&
+          media.map((item) => (
+            <div
+              key={item.id}
+              className="relative rounded-lg overflow-hidden shadow-md"
+            >
+              {item.media_type === "CAROUSEL_ALBUM" && (
+                <img
+                  src={
+                    Array.isArray(item.media_url)
+                      ? item.media_url[0]
+                      : item.media_url
+                  }
+                  className="w-full h-auto object-cover rounded-lg"
+                  alt="Instagram media"
+                />
+              )}
+              {item.media_type === "IMAGE" && (
+                <img
+                  src={
+                    Array.isArray(item.media_url)
+                      ? item.media_url[0]
+                      : item.media_url
+                  }
+                  className="w-full h-auto object-cover rounded-lg"
+                  alt="Instagram media"
+                />
+              )}
+              {item.media_type === "VIDEO" && (
+                <video controls className="w-full h-auto rounded-lg">
+                  <source src={item.media_url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
+          ))}
       </Slider>
     </div>
   );
