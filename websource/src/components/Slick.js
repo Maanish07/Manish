@@ -60,10 +60,10 @@ const Slick = () => {
     <div className="">
       <div className="max-w-7xl mx-auto w-[70rem] max-w-[90vw] flex flex-col gap-1 p-6 overflow-hidden fade-in">
         <Slider {...settingsForward}>
-          {items.map((item, index) => (
+          {(Array.isArray(items) ? items : []).map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-center max-w-max gap-1 text-white text-lg text-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
+              className="flex items-center justify-center max-w-max gap-1 text-white text-lg font-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
             >
               {item.name}
             </div>
@@ -71,10 +71,10 @@ const Slick = () => {
         </Slider>
 
         <Slider {...settingsBackward}>
-          {items.map((item, index) => (
+          {(Array.isArray(items) ? items : []).map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-center max-w-max gap-1 text-gray-300 text-white text-lg text-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
+              className="flex items-center justify-center max-w-max gap-1 text-white text-lg font-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
             >
               {item.name}
             </div>
@@ -82,10 +82,10 @@ const Slick = () => {
         </Slider>
 
         <Slider {...settingsForward}>
-          {items.map((item, index) => (
+          {(Array.isArray(items) ? items : []).map((item, index) => (
             <div
               key={index}
-              className="flex items-center justify-center max-w-max gap-1 text-gray-300 text-white text-lg text-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
+              className="flex items-center justify-center max-w-max gap-1 text-white text-lg font-bold bg-gray-800 rounded-lg p-3 mr-4 shadow-md shadow-black"
             >
               {item.name}
             </div>
