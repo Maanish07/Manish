@@ -53,26 +53,27 @@ function Swipe() {
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="swiper_container"
       >
-        {testimonialImage.map((testImage, index) => (
-          <SwiperSlide
-            key={index}
-            className="swiper-slide flex justify-center items-center"
-            style={{ width: "300px", height: "300px" }}
-          >
-            <a
-              href={`${backendurl}/${testImage.instaid}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full w-full"
+        {Array.isArray(testimonialImage) &&
+          testimonialImage.map((testImage, index) => (
+            <SwiperSlide
+              key={index}
+              className="swiper-slide flex justify-center items-center"
+              style={{ width: "300px", height: "300px" }}
             >
-              <img
-                src={testImage.image}
-                alt={testImage.name}
-                className="h-full w-full object-cover rounded-md"
-              />
-            </a>
-          </SwiperSlide>
-        ))}
+              <a
+                href={`${backendurl}/${testImage.instaid}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-full w-full"
+              >
+                <img
+                  src={testImage.image}
+                  alt={testImage.name}
+                  className="h-full w-full object-cover rounded-md"
+                />
+              </a>
+            </SwiperSlide>
+          ))}
 
         <div className="slider-controler">
           <div className="swiper-button-prev slider-arrow">
