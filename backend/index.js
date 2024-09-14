@@ -54,7 +54,7 @@ const port = 4001;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
   mongoose
-    .connect(mongodbURL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongodbURL, { useNewUrlParser: true, useUnifiedTopology: true ,connectTimeoutMS: 20000,})
     .then(() => {
       console.log("Connected to database successfully");
     })
